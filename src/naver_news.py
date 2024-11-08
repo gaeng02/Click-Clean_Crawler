@@ -10,10 +10,13 @@ def naver (media = 000, field = 100) :
 
     headers = {"User-Agent" : "Chrome"}
     
-    data = requests.get(url, headers = headers)
-     
-    soup = BeautifulSoup(data.text, "html.parser")
-    print(soup)
+    response = requests.get(url, headers = headers)
+
+    if (response.status_code == 200) :
+        soup = BeautifulSoup(responce.text, "html.parser")
+        print(soup)
+        
+    else : print(response.status_code)
     
     # news_content = soup.find("article", id = "dic_area")
     # print(news_content)
