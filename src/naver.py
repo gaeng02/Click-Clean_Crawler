@@ -1,13 +1,11 @@
 import requests
 from bs4 import BeautifulSoup
 
-media = 000  # 언론사 : 001 ~ ... 
-field = 100  # 분야 : 100 ~ ...
 
-def naver (media = 000, field = 100) :
+def naver (num) :
+
+    url = "https://media.naver.com/press/" + media_field[num][0] + "?sid=" + media_field[num][1]
     
-    url = "https://media.naver.com/press/" + str(media) + "?sid=" + str(field)
-
     headers = {"User-Agent" : "Chrome"}
     
     response = requests.get(url, headers = headers)
@@ -23,4 +21,9 @@ def naver (media = 000, field = 100) :
 
 
 if (__name__ == "__main__") :
-    naver()
+    
+    # media = 000  - 언론사 : 001 ~ ... 
+    # field = 100  - 분야 : 100 ~ ...
+    
+    media_field = [["000", "100"], ["000", "101"]]
+    naver(0)
