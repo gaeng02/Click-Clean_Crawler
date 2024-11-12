@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-url = "https://n.news.naver.com/article/448/0000488553?sid=101"
+url = "https://news.naver.com/article/" + ""
     
 headers = {"User-Agent" : "Chrome"}
     
