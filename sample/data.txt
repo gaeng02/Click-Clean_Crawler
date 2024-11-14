@@ -1,0 +1,9 @@
+{
+    "title": "Title",
+    "raw_contents": "<article> text</article>",
+    "url": "https://www.url.com",
+    "reporter": "Name",
+    "media": "Media",
+    "date": "2024-11-14. 09:30",
+    "tag": "테스트"
+}
