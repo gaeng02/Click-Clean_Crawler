@@ -1,5 +1,0 @@
-test
-
-test_contents
-
-<div> test_contents </div>
