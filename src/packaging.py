@@ -1,6 +1,7 @@
 import json
+import os
 
-def make_json (title, raw_contents, url, reporter, media, date, tag = "기타") :
+def make_json (title, raw_contents, url, reporter, media, date, tag = "기타", file_name = "test") :
 
     data = {
         "title" : title,
@@ -11,8 +12,12 @@ def make_json (title, raw_contents, url, reporter, media, date, tag = "기타") 
         "date" : date,
         "tag" : tag
         }
+
+    base_path = "../sample"
+    file_path = os.path.join(base_path, file_name)
+    file_path += ".txt"
     
-    with open("../sample/data.txt", "w", encoding = "utf-8") as file :
+    with open(file_path, "w", encoding = "utf-8") as file :
         json.dump(data, file, indent = 4, ensure_ascii = False)
 
     print("Done")
