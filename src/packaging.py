@@ -5,17 +5,20 @@ def make_json (title, raw_contents, url, reporter, media, date, tag = "기타", 
 
     data = {
         "title" : title,
-        "raw_contents" : raw_contents,
-        "url" : url,
-        "reporter" : reporter,
+        "body" : raw_contents,
         "media" : media,
-        "date" : date,
-        "tag" : tag
+        "author" : reporter,
+        "url" : url,
+        "category" : tag,
+        "created_at" : date
         }
 
+
     base_path = "../sample"
-    file_path = os.path.join(base_path, file_name)
-    file_path += ".txt"
+    extension = ".json"
+
+    file_path = os.path.join(base_path, file_name) + extension
+    
     
     with open(file_path, "w", encoding = "utf-8") as file :
         json.dump(data, file, indent = 4, ensure_ascii = False)
