@@ -62,8 +62,12 @@ def naver (media, field) :
     active_tag = soup.find("li", class_ = "Nlist_item _LNB_ITEM is_active")
     category = active_tag.find("span", class_="Nitem_link_menu").text
 
+    ''' image '''
+    image_tag = soup.find("img")
+    image_url = image_tag["src"] if image_tag else "None"
 
-    make_json(title, body, url, author, media, created_at, category)
+
+    make_json(title, body, url, author, media, created_at, category, image_url)
     
 
 if (__name__ == "__main__") :

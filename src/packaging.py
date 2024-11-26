@@ -1,7 +1,7 @@
 import json
 import os
 
-def make_json (title, raw_contents, url, reporter, media, date, tag = "기타", file_name = "test") :
+def make_json (title, raw_contents, url, reporter, media, date, tag = "기타", image, file_name = "test") :
 
     data = {
         "title" : title,
@@ -11,6 +11,7 @@ def make_json (title, raw_contents, url, reporter, media, date, tag = "기타", 
         "url" : url,
         "category" : tag,
         "created_at" : date
+        "image_url" : image_url
         }
 
 
