@@ -1,16 +1,16 @@
 import json
 import os
 
-def make_json (title, raw_contents, url, reporter, media, date, tag = "기타", image, file_name = "test") :
+def make_json (title, body, url, author, media, created_at, category, image_url, file_name = "test") :
 
     data = {
         "title" : title,
-        "body" : raw_contents,
+        "body" : body,
         "media" : media,
-        "author" : reporter,
+        "author" : author,
         "url" : url,
-        "category" : tag,
-        "created_at" : date
+        "category" : category,
+        "created_at" : created_at,
         "image_url" : image_url
         }
 
@@ -23,8 +23,3 @@ def make_json (title, raw_contents, url, reporter, media, date, tag = "기타", 
     
     with open(file_path, "w", encoding = "utf-8") as file :
         json.dump(data, file, indent = 4, ensure_ascii = False)
-
-    print("Done")
-
-if (__name__ == "__main__") : 
-    make_json ("Title", "<article> text</article>", "https://www.url.com", "Name", "Media", "2024-11-14. 09:30", "테스트")

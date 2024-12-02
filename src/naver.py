@@ -4,9 +4,9 @@ import re
 
 from packaging import make_json
 
-def naver (media, field) :
+def naver (_url) :
 
-    url = "https://media.naver.com/press/" + media + "?sid=" + field
+    url = _url
 
     headers = {"User-Agent" : "Chrome"}
     
@@ -45,8 +45,11 @@ def naver (media, field) :
     ''' author '''
     reporters = soup.find_all("em", class_="media_end_head_journalist_name")
     reporter = [re.sub(r"\s*기자\s*", "", reporter.text) for reporter in reporters]
-    
     author = ", ".join(reporter)
+    
+    if author == "" :
+        author = soup.find("span", class_ = "byline_s").text
+        
     
     
     ''' media '''
@@ -66,13 +69,8 @@ def naver (media, field) :
     image_tag = soup.find("img")
     image_url = image_tag["src"] if image_tag else "None"
 
+    ''' url '''
+    __url = url.split("article/")[1].replace("/", "_")
 
-    make_json(title, body, url, author, media, created_at, category, image_url)
-    
 
-if (__name__ == "__main__") :
-    
-    # media = 000  - 언론사 : 001 ~ ... 
-    # field = 100  - 분야 : 100 ~ ...
-    
-    naver(0, 0)
+    make_json(title, body, url, author, media, created_at, category, image_url, __url)
