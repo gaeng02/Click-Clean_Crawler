@@ -18,6 +18,15 @@ def naver (_url) :
     soup = BeautifulSoup(response.text, "html.parser")
 
 
+    ''' crawling for 3 hours '''
+    time = soup.find("span", class_ = "media_end_head_info_datestamp_time _ARTICLE_DATE_TIME")
+
+    if not time or "data-date-time-age-in-minutes" not in time.attrs : return "Error Occured :: No Time"
+
+    news_age = int(time["data-date-time-age-in-minutes"])
+    if (news_age > 180) : return ;
+
+
     ''' title '''
     title = soup.find("h2", id = "title_area").text
 
@@ -66,11 +75,15 @@ def naver (_url) :
     category = active_tag.find("span", class_="Nitem_link_menu").text
 
     ''' image '''
-    image_tag = soup.find("img")
-    image_url = image_tag["src"] if image_tag else "None"
+    image_tag = soup.find_all("img")
+    
+    if len(image_tag) >= 2 : image_url = image_tag[1].get("src", "None")
+    elif len(image_tag) == 1 : image_url = image_tag[0].get("src", "None")
+    else : image_url = "None"
 
+    
     ''' url '''
     __url = url.split("article/")[1].replace("/", "_")
 
 
-    make_json(title, body, url, author, media, created_at, category, image_url, __url)
+    make_json(title, body, url, author, media, created_at, category, image_url)
