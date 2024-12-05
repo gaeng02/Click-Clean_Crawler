@@ -66,9 +66,12 @@ def naver (_url) :
 
     
     ''' created_at '''
-    # f"YEAR.MONTH.DAY AM/PM TT:MM"
-    created_at = soup.find("span", class_ = "media_end_head_info_datestamp_time _ARTICLE_DATE_TIME").text
-
+    # f"YEAR.MONTH.DAY AM/PM TT:MM" time_obj.strftime('%Y.%m.%d. %H:%M')
+    date = soup.find("span", class_ = "media_end_head_info_datestamp_time _ARTICLE_DATE_TIME").text
+    date = date.replace('오전', 'AM').replace('오후', 'PM')
+    date = datetime.strptime(date, '%Y.%m.%d. %p %I:%M')
+    created_at = date.strftime('%Y.%m.%d. %H:%M')
+                                                    
     
     ''' category ''' 
     active_tag = soup.find("li", class_ = "Nlist_item _LNB_ITEM is_active")
