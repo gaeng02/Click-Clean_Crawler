@@ -5,35 +5,38 @@ from naver import naver
 
 def lambda_handler (event, context) :
     
-    base = "https://news.naver.com/section/"
-    tag_code = ["100", "101", "102", "103", "104", "105"]
+    base = "https://media.naver.com/press/"
+    sid = "?sid="
+
+    media_code = ["052", "055", "056",  "214", "437"]  
+    tag_code = ["100", "101", "102", "103", "104"]
+
+    except_media_code = ["052", "056"]
+    except_tag = ["105"]
+    
 
     headers = {"User-Agent" : "Chrome"}
 
 
-    for tag in tag_code : 
-        # test_url = base + tag_code[0]
+    for media in media_code :
+        for tag in tag_code : 
 
-        url = base + tag
+            url = base + media + sid + tag
 
-        response = requests.get(url, headers = headers)
+            response = requests.get(url, headers = headers)
+            soup = BeautifulSoup(response.text, "html.parser")
 
-        soup = BeautifulSoup(response.text, "html.parser")
+            news_url = soup.find_all ("a", class_="press_edit_news_link _es_pc_link")
 
-        news_url = soup.find_all ("a", class_="sa_text_title _NLOG_IMPRESSION")
-
-        for link in news_url :
-            href = link.get("href")
+            for link in news_url :
+                href = link.get("href")
+                if href :
+                    try :
+                        time.sleep(1)
+                        naver(href)
+                        
+                    except Exception as e :
+                        print(f"{e} :: {href}")
+                        continue
             
-            if href :
-                
-                try :
-                    time.sleep(1)
-                    naver(href)
-                    
-                except Exception as e:
-                    
-                    print(f"Error occured :: {href}")
-                    continue
-            
-
+# lambda_handler(0, 0)

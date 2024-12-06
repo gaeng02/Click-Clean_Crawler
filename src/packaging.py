@@ -14,7 +14,9 @@ def make_json (title, body, url, author, media, created_at, category, image_url)
         "image_url" : image_url
         }
 
-    send_to_sqs(data)
+    # send_to_sqs(data)
+
+    save_as_json(data)
     
 
 def send_to_sqs (data) :
@@ -33,3 +35,16 @@ def send_to_sqs (data) :
 
     except Exception as e :
         print(f"Failed to send message to SQS : {e}")
+
+
+def save_as_json (data) : 
+
+    base_path = "../sample/"
+    extension = ".json"
+
+    filename = data["url"].split("article/")[1].replace("/", "_")[:14]
+
+    with open(base_path + filename + extension, "w", encoding = "utf-8") as file :
+        json.dump(data, file, indent = 4, ensure_ascii = False)
+    
+    

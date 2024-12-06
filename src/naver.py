@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import re
+from datetime import datetime
 
 from packaging import make_json
 
@@ -78,15 +79,8 @@ def naver (_url) :
     category = active_tag.find("span", class_="Nitem_link_menu").text
 
     ''' image '''
-    image_tag = soup.find_all("img")
-    
-    if len(image_tag) >= 2 : image_url = image_tag[1].get("src", "None")
-    elif len(image_tag) == 1 : image_url = image_tag[0].get("src", "None")
-    else : image_url = "None"
-
-    
-    ''' url '''
-    __url = url.split("article/")[1].replace("/", "_")
+    image_tag = raw_contents_with_tag.find("img", id = "img1")
+    image_url = image_tag.get("src", "None") if image_tag else "None"
 
 
     make_json(title, body, url, author, media, created_at, category, image_url)
