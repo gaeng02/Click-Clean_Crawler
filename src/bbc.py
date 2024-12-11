@@ -1,25 +1,18 @@
 import requests
 from bs4 import BeautifulSoup
 
-field = ["sport", "business", "innovate", "culture", "arts", "travel", "earth"]  
-
-def bbc (field = "sport") :
+def bbc () :
     
-    url = "https://www.bbc.com/" + field
+    url = "https://www.bbc.com/news"
 
     headers = {"User-Agent" : "Chrome"}
     
     response = requests.get(url, headers = headers)
 
-    if (response.status_code == 200) :
-        soup = BeautifulSoup(response.text, "html.parser")
-        print(soup)
-        
-    else : print(response.status_code)
-    
-    # news_content = soup.find("article", id = "dic_area")
-    # print(news_content)
+    if (response.status_code != 200) :
+        print(response.status_code)
+        return ;
 
+    soup = BeautifulSoup(response.text, "html.parser")
 
-if (__name__ == "__main__") :
-    bbc()
+    news_links = soup.find_all('a', {'data-test' : True, 'id' : 'internal-link'})
