@@ -4,7 +4,11 @@ from bs4 import BeautifulSoup
 from naver import naver
 
 def lambda_handler (event, context) :
-    
+
+    headers = {"User-Agent" : "Chrome"}
+
+
+    # naver news
     base = "https://media.naver.com/press/"
     sid = "?sid="
 
@@ -14,10 +18,6 @@ def lambda_handler (event, context) :
     except_media_code = ["052", "056"]
     except_tag = ["105"]
     
-
-    headers = {"User-Agent" : "Chrome"}
-
-
     for media in media_code :
         for tag in tag_code : 
 
@@ -38,5 +38,9 @@ def lambda_handler (event, context) :
                     except Exception as e :
                         print(f"{e} :: {href}")
                         continue
-            
-# lambda_handler(0, 0)
+
+    # bbc news
+    
+
+if (__name__ == "__main__") :
+    lambda_handler (True, True)   
